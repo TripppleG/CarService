@@ -1,0 +1,30 @@
+package com.carservice.data.enums;
+
+public enum CarBrand {
+    All,
+    TOYOTA,
+    HONDA,
+    FORD,
+    CHEVROLET,
+    NISSAN,
+    BMW,
+    MERCEDES_BENZ,
+    AUDI,
+    VOLKSWAGEN,
+    HYUNDAI,
+    KIA,
+    MAZDA,
+    SUBARU,
+    TESLA,
+    LEXUS,
+    INFINITI,
+    ACURA,
+    PORSCHE,
+    JAGUAR,
+    LAND_ROVER,
+    FERRARI,
+    LAMBORGHINI,
+    ASTON_MARTIN,
+    BUGATTI,
+    McLAREN
+}
