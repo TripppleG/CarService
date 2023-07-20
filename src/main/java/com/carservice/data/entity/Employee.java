@@ -1,4 +1,40 @@
 package com.carservice.data.entity;
 
-public class Employee {
+import com.carservice.data.enums.ServiceJobType;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
+import java.util.Set;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Entity
+@Table(name = "employee")
+public class Employee extends User {
+    @ElementCollection(targetClass = ServiceJobType.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "employee_qualifications", joinColumns = @JoinColumn(name = "employee_id"))
+    @Column(name = "qualifications")
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "The qualifications must be set!")
+    private Set<ServiceJobType> qualifications;
+
+    @ManyToOne(targetEntity = ServiceCenter.class)
+    @JoinColumn(name = "service_center")
+    @NotNull(message = "The service center must be set!")
+    private ServiceCenter serviceCenter;
+
+    public void setEmail() {
+        String tempMail = this.firstName + "." + this.lastName + "@" + serviceCenter.getName() + ".com";
+        int counter = 1;
+        while (serviceCenter.getEmployees().stream().anyMatch(employee ->
+                employee.getEmail().equals(this.firstName + "." + this.lastName + "@" + serviceCenter.getName() + ".com"))) {
+                tempMail = this.firstName + "." + this.lastName + counter + "@" + serviceCenter.getName() + ".com";
+                counter++;
+        }
+        this.email = tempMail;
+    }
 }

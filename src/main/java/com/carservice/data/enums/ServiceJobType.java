@@ -1,12 +1,19 @@
 package com.carservice.data.enums;
 
 public enum ServiceJobType {
+    GENERAL,
     SUSPENSION,
     ENGINE,
     BRAKING_SYSTEM,
     OIL_CHANGE,
+    EXHAUST_SYSTEM,
+    FUEL_SYSTEM,
+    STARTING_SYSTEM,
+    BRAKE_SYSTEM,
+    ELECTRIC_SYSTEM,
     FILTER_CHANGE,
     IGNITION_SYSTEM,
     BODY_REPAIR,
-    PAINT_JOB
+    PAINT_JOB,
+    DIAGNOSTICS
 }

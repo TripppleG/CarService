@@ -1,23 +1,23 @@
 package com.carservice.data.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
-@Table(name = "customer")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Long id;
+@Table(name = "customer")
+public class Customer extends User {
+    @OneToMany(targetEntity = Car.class)
+    @Column(name = "cars")
+    private Set<Car> cars;
 
-    private String name;
-
-    @OneToMany
-    private List<Car> cars;
-
-    @OneToMany
-    @JoinColumn(name = "service_job")
-    private List<ServiceJob> serviceJobs;
+    @OneToMany(targetEntity = ServiceJob.class)
+    @Column(name = "service_job_history")
+    private Set<ServiceJob> serviceJobHistory;
 }

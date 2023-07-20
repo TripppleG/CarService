@@ -1,9 +1,15 @@
 package com.carservice.data.entity;
 
 import jakarta.persistence.*;
-
+import lombok.*;
 import java.time.LocalDate;
+import java.util.Set;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "appointment")
 public class Appointment {
@@ -12,20 +18,26 @@ public class Appointment {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne()
+    @ManyToOne(targetEntity = Customer.class)
     @JoinColumn(name= "customer")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "car_service_center_id")
-    private CarServiceCenter carServiceCenter;
-
     @Column(name = "date_created")
+    @NonNull
     private LocalDate dateCreated;
 
-    @Column(name = "dateOfAppointment")
+    @Column(name = "date_of_appointment")
+    @NonNull
     private LocalDate dateOfAppointment;
 
-    public Appointment() {
-    }
+    @ManyToOne(targetEntity = ServiceJob.class)
+    @JoinColumn(name = "service_center")
+    @NonNull
+    private ServiceCenter serviceCenter;
+
+    @OneToMany(targetEntity = ServiceJob.class)
+    @JoinColumn(name = "service_jobs")
+    private Set<ServiceJob> serviceJobs;
 }
+
+
