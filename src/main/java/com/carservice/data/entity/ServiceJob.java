@@ -26,6 +26,11 @@ public class ServiceJob {
     @NotNull(message = "The customer must be set!")
     private Customer customer;
 
+    @ManyToOne(targetEntity = Car.class)
+    @JoinColumn(name = "car")
+    @NotNull(message = "The car must be set!")
+    private Car car;
+
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     @NotNull(message = "The type must be set!")

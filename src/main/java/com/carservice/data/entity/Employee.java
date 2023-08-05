@@ -23,16 +23,16 @@ public class Employee extends User {
     private Set<ServiceJobType> qualifications;
 
     @ManyToOne(targetEntity = ServiceCenter.class)
-    @JoinColumn(name = "service_center")
+    @JoinColumn(name = "working_at")
     @NotNull(message = "The service center must be set!")
-    private ServiceCenter serviceCenter;
+    private ServiceCenter workingAt;
 
     public void setEmail() {
-        String tempMail = this.firstName + "." + this.lastName + "@" + serviceCenter.getName() + ".com";
+        String tempMail = this.firstName + "." + this.lastName + "@" + workingAt.getName() + ".com";
         int counter = 1;
-        while (serviceCenter.getEmployees().stream().anyMatch(employee ->
-                employee.getEmail().equals(this.firstName + "." + this.lastName + "@" + serviceCenter.getName() + ".com"))) {
-                tempMail = this.firstName + "." + this.lastName + counter + "@" + serviceCenter.getName() + ".com";
+        while (workingAt.getEmployees().stream().anyMatch(employee ->
+                employee.getEmail().equals(this.firstName + "." + this.lastName + "@" + workingAt.getName() + ".com"))) {
+                tempMail = this.firstName + "." + this.lastName + counter + "@" + workingAt.getName() + ".com";
                 counter++;
         }
         this.email = tempMail;

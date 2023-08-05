@@ -39,4 +39,8 @@ public class ServiceCenter {
     @OneToMany(targetEntity = Appointment.class)
     @JoinColumn(name = "appointment_history")
     private Set<Appointment> appointmentHistory;
+
+    @OneToMany(targetEntity = ServiceJob.class)
+    @JoinColumn(name = "service_job_history")
+    private Set<ServiceJob> serviceJobHistory;
 }
