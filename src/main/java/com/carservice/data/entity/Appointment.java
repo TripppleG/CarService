@@ -33,7 +33,7 @@ public class Appointment {
     @ManyToOne(targetEntity = ServiceJob.class)
     @JoinColumn(name = "service_center")
     @NonNull
-    private ServiceCenter serviceCenter;
+    private CarCenter carCenter;
 
     @OneToMany(targetEntity = ServiceJob.class)
     @JoinColumn(name = "service_jobs")

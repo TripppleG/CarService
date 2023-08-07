@@ -22,10 +22,10 @@ public class Employee extends User {
     @NotNull(message = "The qualifications must be set!")
     private Set<ServiceJobType> qualifications;
 
-    @ManyToOne(targetEntity = ServiceCenter.class)
+    @ManyToOne(targetEntity = CarCenter.class)
     @JoinColumn(name = "working_at")
     @NotNull(message = "The service center must be set!")
-    private ServiceCenter workingAt;
+    private CarCenter workingAt;
 
     public void setEmail() {
         String tempMail = this.firstName + "." + this.lastName + "@" + workingAt.getName() + ".com";

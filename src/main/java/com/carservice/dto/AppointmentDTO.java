@@ -1,11 +1,10 @@
 package com.carservice.dto;
 
 import com.carservice.data.entity.Customer;
-import com.carservice.data.entity.ServiceCenter;
+import com.carservice.data.entity.CarCenter;
 import com.carservice.data.entity.ServiceJob;
 import lombok.*;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -18,6 +17,6 @@ public class AppointmentDTO {
     private Customer customer;
     private LocalDate dateCreated;
     private LocalDate dateOfAppointment;
-    private ServiceCenter serviceCenter;
+    private CarCenter carCenter;
     private Set<ServiceJob> serviceJobs;
 }
