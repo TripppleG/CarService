@@ -10,13 +10,13 @@ import lombok.*;
 import java.util.Set;
 
 @Getter
-@Setter(AccessLevel.PRIVATE)
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity
 @Table(name = "service_center")
-public class ServiceCenter {
+public class CarCenter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
