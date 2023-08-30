@@ -1,18 +1,14 @@
 package com.carservice.web.api;
 
-import com.carservice.data.entity.Car;
 import com.carservice.dto.CarDTO;
 import com.carservice.services.CarService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/{customerId}/cars")
+@RequestMapping("/api/customer-{customerId}/cars")
 @AllArgsConstructor
 public class CarApiController {
     private final CarService carService;
@@ -20,6 +16,6 @@ public class CarApiController {
     @GetMapping("/")
     public List<CarDTO> getCars() { return carService.getCars(); }
 
-    @GetMapping("/{id}")
-    public CarDTO getCar(@PathVariable String licensePlate) { return carService.getCar(licensePlate); }
+    @GetMapping("/{licensePlate}")
+    public CarDTO getCar(@RequestParam @PathVariable("licensePlate") String licensePlate) { return carService.getCar(licensePlate); }
 }
