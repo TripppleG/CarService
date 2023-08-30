@@ -8,7 +8,9 @@ import com.carservice.services.AppointmentService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,11 +20,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Primary
 @AllArgsConstructor
-@Validated
 public class AppointmentServiceImpl implements AppointmentService{
     private final AppointmentRepository appointmentRepository;
     private final ModelMapper modelMapper;
+
+    private AppointmentDTO convertToAppointmentDTO(Appointment appointment) {
+        return modelMapper.map(appointment, AppointmentDTO.class);
+    }
 
     @Override
     public List<AppointmentDTO> getAppointments() {
@@ -38,8 +44,8 @@ public class AppointmentServiceImpl implements AppointmentService{
     }
 
     @Override
-    public Appointment create(@Valid Appointment appointment) {
-        return appointmentRepository.save(modelMapper.map(appointment, Appointment.class));
+    public Appointment create(@Valid AppointmentDTO appointmentDTO) {
+        return appointmentRepository.save(modelMapper.map(appointmentDTO, Appointment.class));
     }
 
     @Override
@@ -54,12 +60,8 @@ public class AppointmentServiceImpl implements AppointmentService{
         appointmentRepository.deleteById(id);
     }
 
-    private AppointmentDTO convertToAppointmentDTO(Appointment appointment) {
-        return modelMapper.map(appointment, AppointmentDTO.class);
-    }
-
     @Override
-    public List<AppointmentDTO> getAppointmentsByCustomer(String customerEmail) {
+    public List<AppointmentDTO> getAppointmentsByCustomerEmail(String customerEmail) {
         return appointmentRepository.findAllByCustomerEmail(customerEmail).stream()
                 .map(this::convertToAppointmentDTO)
                 .collect(Collectors.toList());
@@ -88,7 +90,7 @@ public class AppointmentServiceImpl implements AppointmentService{
 
     @Override
     public List<AppointmentDTO> getAppointmentsByCustomerFirstNameStartsWith(String customerName, Sort sort) {
-        return appointmentRepository.findAllByCustomerFirstNameStartsWith(customerName, Sort.by("name")).stream()
+        return appointmentRepository.findAllByCustomerFirstNameStartsWith(customerName, Sort.by("firstName")).stream()
                 .map(this::convertToAppointmentDTO)
                 .collect(Collectors.toList());
     }
@@ -96,20 +98,6 @@ public class AppointmentServiceImpl implements AppointmentService{
     @Override
     public List<AppointmentDTO> getAppointmentsByCustomerEmailAndDateOfAppointment(String customerEmail, LocalDate dateOfAppointment) {
         return appointmentRepository.findAllByCustomerEmailAndDateOfAppointment(customerEmail, dateOfAppointment).stream()
-                .map(this::convertToAppointmentDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<AppointmentDTO> getAppointmentsByCustomerEmailAndCarCenterName(String customerName, String carCenterName){
-        return appointmentRepository.findAllByCustomerEmailAndCarCenterName(customerName, carCenterName).stream()
-                .map(this::convertToAppointmentDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<AppointmentDTO> getAppointmentsByDateCreatedAndDateOfAppointment(LocalDate dateCreated, LocalDate dateOfAppointment) {
-        return appointmentRepository.findAllByDateCreatedAndDateOfAppointment(dateCreated, dateOfAppointment).stream()
                 .map(this::convertToAppointmentDTO)
                 .collect(Collectors.toList());
     }
@@ -124,6 +112,13 @@ public class AppointmentServiceImpl implements AppointmentService{
     @Override
     public List<AppointmentDTO> getAppointmentsByCarCenterNameAndDateOfAppointment(String carCenterName, LocalDate dateOfAppointment) {
         return appointmentRepository.findAllByCarCenterNameAndDateOfAppointment(carCenterName, dateOfAppointment).stream()
+                .map(this::convertToAppointmentDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AppointmentDTO> getAppointmentsByIsPastTrue() {
+        return appointmentRepository.findAllByIsPastTrue().stream()
                 .map(this::convertToAppointmentDTO)
                 .collect(Collectors.toList());
     }
