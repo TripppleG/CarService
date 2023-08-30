@@ -3,21 +3,23 @@ package com.carservice.data.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "customer")
 public class Customer extends User {
-    @OneToMany(targetEntity = Car.class)
-    @Column(name = "cars")
+    @OneToMany(targetEntity = Car.class, mappedBy = "owner")
     private Set<Car> cars;
 
-    @OneToMany(targetEntity = ServiceJob.class)
-    @Column(name = "service_job_history")
-    private Set<ServiceJob> serviceJobHistory;
+    @OneToMany(targetEntity = Appointment.class, mappedBy = "customer")
+    private Set<Appointment> appointments;
+
+    @ManyToMany(targetEntity = CarCenter.class, mappedBy = "customers")
+    private Set<CarCenter> customerOf;
 }

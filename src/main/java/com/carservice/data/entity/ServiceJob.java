@@ -1,5 +1,6 @@
 package com.carservice.data.entity;
 
+import com.carservice.data.enums.ServiceJobStatus;
 import com.carservice.data.enums.ServiceJobType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @ToString
 @Entity
 @Table(name = "service_job")
@@ -31,20 +33,26 @@ public class ServiceJob {
     @NotNull(message = "The car must be set!")
     private Car car;
 
+    @ManyToOne(targetEntity = Employee.class)
+    @JoinColumn(name = "employee")
+    private Employee employee;
+
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     @NotNull(message = "The type must be set!")
     private ServiceJobType type;
 
     @Column(name = "date_started")
-    @NotNull(message = "The date of starting must be set!")
     private LocalDate dateStarted;
 
     @Column(name = "date_finished")
-    @NotNull(message = "The date of resolving must be set!")
     private LocalDate dateFinished;
 
     @Column(name = "price")
-    @NotNull(message = "The price cannot be empty!")
     private Double price;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "The status must be set!")
+    private ServiceJobStatus status = ServiceJobStatus.NEW;
 }

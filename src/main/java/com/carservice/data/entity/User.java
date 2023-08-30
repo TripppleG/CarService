@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @MappedSuperclass
@@ -12,18 +14,17 @@ import lombok.Setter;
 @Setter
 public abstract class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "email")
     @Size(min = 6, max = 64, message = "The email must be at least {min} characters long!")
     @NotBlank(message = "The email cannot be empty!")
     protected String email;
 
     @Column(name = "first_name")
-    @NotBlank
+    @NotBlank(message = "The first name cannot be empty!")
     protected String firstName;
 
     @Column(name = "last_name")
-    @NotBlank
+    @NotBlank(message = "The last name cannot be empty!")
     protected String lastName;
 
     @Column(name = "phone_number")
