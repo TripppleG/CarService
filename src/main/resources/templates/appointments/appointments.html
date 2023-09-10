@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head}"><title>Appointments</title></head>
+<body>
+<header th:replace="~{fragments :: headerCustomer}"></header>
+<h4 th:if="${appointments.size()>0}" th:text="'Appointments: ' + ${appointments.size()}"> </h4>
+<div class=" col-6">
+    <h3 th:unless="${appointments} and ${appointments.size()}">There aren't any past or active appointments!</h3>
+    <table th:if="${appointments.size() > 0}" class="table table-hover">
+        <th>Car</th>
+        <th>Car Center</th>
+        <th>Date created</th>
+        <th>Date of appointment</th>
+        <tr th:each="appointment : ${appointments}">
+            <td>
+                <p th:text="${appointment.car.licensePlate}"></p>
+                <p th:text="${appointment.car.brand} + ' ' + ${appointment.car.model}"></p>
+            </td>
+            <td th:text="${appointment.carCenter.name}"></td>
+            <td th:text="${appointment.dateCreated}"></td>
+            <td th:text="${appointment.dateOfAppointment}"></td>
+            <td th:text="${appointment.car.getServiceJobs()}"></td>
+            <td><a type="button" class="btn btn-info" th:href="@{'/appointments/edit-appointment/' + ${appointment.id}}">Edit</a></td>
+            <td><a type="button" class="btn btn-danger" th:href="@{'/appointments/delete-appointment/' + ${appointment.id}}">Cancel</a></td>
+        </tr>
+    </table>
+</div>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

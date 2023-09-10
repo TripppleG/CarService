@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head}"><title>Search by date</title></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<h4>Register the appointment</h4>
+<div class="col-6">
+    <form action="#" th:action="@{/templates/appointments/date}" method="get">
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input class="form-control" type="text" th:name="appointment" placeholder="Appointment" id="id">
+            <label for="id">Foundation Date</label>
+            <input class="form-control" type="date" th:name="dateOfAppointment" placeholder="dd-mm-yyyy" id="dateOfAppointment">
+        </div>
+        <button type="submit" class="btn btn-primary">Find Schools</button>
+    </form>
+</div>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

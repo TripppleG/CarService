@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title th:text="${statusCode}"></title>
+    <link href="/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+    <br>
+    <div class="d-flex justify-content-center" id="errorImage">
+        <img th:src="@{'https://http.cat/' + ${statusCode}}" alt="Error Image"/>
+    </div>
+</body>
+</html>

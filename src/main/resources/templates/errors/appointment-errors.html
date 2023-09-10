@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head}"><title>ERROR</title></head>
+<body>
+<header th:replace="~{fragments :: headerCustomer}"></header>
+<div class="text-center">
+    <h2>Something went wrong with the appointment!</h2>
+    <h2 th:text="${message}"></h2>
+</div>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

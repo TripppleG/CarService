@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head}"><title>Add car</title></head>
+<body>
+    <header th:replace="~{fragments :: headerCustomer}"></header>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Add car</h2>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{'cars/create-car'}" method="post">
+                            <div class="form-group mb-3">
+                                <label for="car">Select a car:</label>
+                                <select id="car" name="Car" th:field="*{customer.cars}" required>
+                                    <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.brand} + ' ' + ${car.model}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="serviceJobType">Add service job(s):</label>
+                                <select id="serviceJobType" name="serviceJobType" required>
+                                    <option th:each="serviceJobType : ${T(com.carservice.data.enums.ServiceJobType).values()}" th:value="${serviceJobType.name()}" th:text="${serviceJobType.name()}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="date">Date:</label>
+                                <input type="date" class="form-control" id="date" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>
