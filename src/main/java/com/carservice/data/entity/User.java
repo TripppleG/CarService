@@ -1,6 +1,5 @@
 package com.carservice.data.entity;
 
-import com.carservice.data.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -8,14 +7,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
-@MappedSuperclass
+
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
+@Entity
 public abstract class User implements UserDetails {
     @Id
     @Column(name = "email")
@@ -42,13 +42,8 @@ public abstract class User implements UserDetails {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "The password must contain at least 1 uppercase letter, 1 lowercase letter and 1 digit!")
     protected String password;
 
-    @Enumerated
-    @Column(name = "authority")
-    @NotNull
-    protected Role authority;
-
-//    @ManyToMany
-//    private Set<Role> authorities;
+    @ManyToMany
+    protected Set<Role> authorities;
 
     @Override
     public boolean isAccountNonExpired() {
@@ -72,7 +67,7 @@ public abstract class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Set.of(this.authority);
+        return this.authorities;
     }
 
     @Override
