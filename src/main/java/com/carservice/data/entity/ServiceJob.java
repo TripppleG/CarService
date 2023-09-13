@@ -32,11 +32,9 @@ public class ServiceJob {
     private ServiceJobType type;
 
     @Column(name = "date_started")
-    @FutureOrPresent(message = "The date started must be in the future!")
     private LocalDate dateStarted;
 
     @Column(name = "date_finished")
-    @FutureOrPresent(message = "The date finished must be in the future!")
     private LocalDate dateFinished;
 
     @Column(name = "price")
