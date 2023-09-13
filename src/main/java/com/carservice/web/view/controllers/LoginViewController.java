@@ -1,7 +1,11 @@
 package com.carservice.web.view.controllers;
 
+import com.carservice.data.entity.User;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,17 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class LoginViewController {
     @GetMapping("/login")
-    public String login(){
+    public String getLogin() {
         return "login";
     }
 
-    @PostMapping("/home")
-    public String loginHome(){
-        return "customers/home";
-    }
+
+
 
     @GetMapping("/logout")
     public String logout(){
-        return "redirect:/login";
+        return "login";
+    }
+
+    @GetMapping("/unauthorized")
+    public String unauthorized(){
+        return "unauthorized";
     }
 }
