@@ -11,6 +11,7 @@
         <th>Car Center</th>
         <th>Date created</th>
         <th>Date of appointment</th>
+        <th>Service jobs</th>
         <tr th:each="appointment : ${appointments}">
             <td>
                 <p th:text="${appointment.car.licensePlate}"></p>
@@ -19,7 +20,7 @@
             <td th:text="${appointment.carCenter.name}"></td>
             <td th:text="${appointment.dateCreated}"></td>
             <td th:text="${appointment.dateOfAppointment}"></td>
-            <td th:text="${appointment.car.getServiceJobs()}"></td>
+            <td th:text="${appointment.serviceJobs}"></td>
             <td><a type="button" class="btn btn-info" th:href="@{'/appointments/edit-appointment/' + ${appointment.id}}">Edit</a></td>
             <td><a type="button" class="btn btn-danger" th:href="@{'/appointments/delete-appointment/' + ${appointment.id}}">Cancel</a></td>
         </tr>

@@ -2,6 +2,7 @@ package com.carservice.services.implementations;
 
 import com.carservice.data.entity.Customer;
 import com.carservice.data.repository.CustomerRepository;
+import com.carservice.dto.CreateCustomerDTO;
 import com.carservice.dto.CustomerDTO;
 import com.carservice.exceptions.CustomerNotFoundException;
 import com.carservice.services.CustomerService;
@@ -38,8 +39,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer create(@Valid CustomerDTO customerDTO) {
-        return customerRepository.save(modelMapper.map(customerDTO, Customer.class));
+    public Customer create(@Valid CreateCustomerDTO createCustomerDTO) {
+        return customerRepository.save(modelMapper.map(createCustomerDTO, Customer.class));
     }
 
     @Override
@@ -83,10 +84,5 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO getCustomerByAppointmentId(Long appointmentId) {
         return modelMapper.map(customerRepository.findByAppointmentId(appointmentId), CustomerDTO.class);
-    }
-
-    @Override
-    public CustomerDTO getCustomerByServiceCenterName(String serviceCenterName) {
-        return modelMapper.map(customerRepository.findByServiceCenterName(serviceCenterName), CustomerDTO.class);
     }
 }

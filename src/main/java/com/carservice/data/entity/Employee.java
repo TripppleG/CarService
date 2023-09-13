@@ -1,18 +1,18 @@
 package com.carservice.data.entity;
 
+import com.carservice.data.enums.Role;
 import com.carservice.data.enums.ServiceJobType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(callSuper = true)
 @Entity
 @Table(name = "employee")
 public class Employee extends User {
@@ -32,11 +32,11 @@ public class Employee extends User {
     private Set<ServiceJob> serviceJobs;
 
     public void setEmail() {
-        String tempMail = this.firstName + "." + this.lastName + "@" + workingAt.getName() + ".com";
+        String tempMail = (this.firstName + "." + this.lastName + "@" + workingAt.getName() + ".com").toLowerCase();
         int counter = 1;
         while (workingAt.getEmployees().stream().anyMatch(employee ->
                 employee.getEmail().equals(this.firstName + "." + this.lastName + "@" + workingAt.getName() + ".com"))) {
-                tempMail = this.firstName + "." + this.lastName + counter + "@" + workingAt.getName() + ".com";
+                tempMail = (this.firstName + "." + this.lastName + counter + "@" + workingAt.getName() + ".com").toLowerCase();
                 counter++;
         }
         this.email = tempMail;
@@ -49,10 +49,7 @@ public class Employee extends User {
         this.password = password;
         this.qualifications = qualifications;
         this.workingAt = workingAt;
-        setEmail();
-    }
-
-    public void setWorkingAt() {
+        this.authority = Role.EMPLOYEE;
         setEmail();
     }
 }

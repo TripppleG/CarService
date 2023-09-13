@@ -5,6 +5,7 @@ import com.carservice.dto.AppointmentDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,7 +17,7 @@ public interface AppointmentService {
 
     Appointment create(@Valid AppointmentDTO appointment);
 
-    Appointment updateAppointment(Long id, @Valid AppointmentDTO appointmentDTO);
+    Appointment updateAppointment(@PathVariable Long id, @Valid AppointmentDTO appointmentDTO);
 
     void deleteAppointment(Long id);
 
@@ -36,5 +37,5 @@ public interface AppointmentService {
 
     List<AppointmentDTO> getAppointmentsByCarCenterNameAndDateOfAppointment(String carCenterName, LocalDate dateOfAppointment);
 
-    List<AppointmentDTO> getAppointmentsByIsPastTrue();
+    List<AppointmentDTO> getAppointmentsByHasPassedTrue();
 }

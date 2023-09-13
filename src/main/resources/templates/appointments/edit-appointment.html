@@ -9,33 +9,35 @@
         <div class="col-md-6 offset-md-3">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="text-center">Add appointment</h2>
+                    <h2 class="text-center">Edit appointment</h2>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/update-appointment}" method="post">
+                    <form action="#" th:action="@{/update-appointment/{id}(id=${id})}" th:object="${appointment}" method="post">
                         <div class="form-group mb-3">
-                            <label for="car">Select a car:</label>
-                            <select id="car" name="Car" th:field="*{customer.cars}" required>
-                                <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.brand} + ' ' + ${car.model}"></option>
+                            <label for="car">Car</label>
+                            <select class="form-select" th:field="*{car.licensePlate}" id="car" aria-label="car" disabled>
+                                <option th:text="${appointment.car.licensePlate}" th:value="${appointment.car.licensePlate}"></option>
                             </select>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="serviceJobType">Add service job(s):</label>
-                            <select id="serviceJobType" name="serviceJobType" required>
-                                <option th:each="serviceJobType : ${T(com.carservice.data.enums.ServiceJobType).values()}" th:value="${serviceJobType.name()}" th:text="${serviceJobType.name()}"></option>
+                            <label for="serviceJobs">Service jobs:</label>
+                            <select th:field="*{serviceJobs}" class="form-select" id="serviceJobs" aria-label="serviceJobs" multiple disabled>
+                                <option th:each="serviceJob : ${appointment.serviceJobs}"
+                                        th:text="${serviceJob.type}" th:value="${serviceJob.type}"></option>
                             </select>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="serviceCenter">Select service center:</label>
-                            <select id="serviceCenter" name="serviceCenter" required>
-                                <option th:each="serviceJobType : ${T(com.carservice.data.enums.ServiceJobType).values()}" th:value="${serviceJobType.name()}" th:text="${serviceJobType.name()}"></option>
+                            <label for="carCenter">Car center:</label>
+                            <select th:field="*{carCenter.name}" class="form-select" id="carCenter" aria-label="carCenter" disabled>
+                                <option th:text="${appointment.carCenter.name}" th:value="${appointment.carCenter.name}"></option>
                             </select>
                         </div>
                         <div class="form-group mb-3">
                             <label for="date">Date:</label>
-                            <input type="date" class="form-control" id="date" required>
+                            <input th:field="*{dateOfAppointment}" type="date" class="form-control" id="date" required>
+                            <span class="text-danger" th:if="${#fields.hasErrors('dateOfAppointment')}" th:errors="*{dateOfAppointment}">The date cannot be in the past</span>
                         </div>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </form>
                 </div>
             </div>

@@ -1,41 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="~{fragments :: head}"><title>Add car</title></head>
+<head th:replace="~{fragments :: head}">
+    <title>Edit</title>
+</head>
 <body>
-    <header th:replace="~{fragments :: headerCustomer}"></header>
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="text-center">Add car</h2>
-                    </div>
-                    <div class="card-body">
-                        <form th:action="@{'cars/create-car'}" method="post">
-                            <div class="form-group mb-3">
-                                <label for="car">Select a car:</label>
-                                <select id="car" name="Car" th:field="*{customer.cars}" required>
-                                    <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.brand} + ' ' + ${car.model}"></option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="serviceJobType">Add service job(s):</label>
-                                <select id="serviceJobType" name="serviceJobType" required>
-                                    <option th:each="serviceJobType : ${T(com.carservice.data.enums.ServiceJobType).values()}" th:value="${serviceJobType.name()}" th:text="${serviceJobType.name()}"></option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="date">Date:</label>
-                                <input type="date" class="form-control" id="date" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </form>
-                    </div>
+<header th:replace="~{fragments :: headerCustomer}"></header>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Create car</h3>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/cars/create}" th:object="${car}" method="post">
+                        <div class="form-group mb-3">
+                            <label for="licensePlate">License plate</label>
+                            <input class="form-control" type="text" th:field="*{licensePlate}" placeholder="Enter license plate" id="licensePlate">
+                            <span class="text-danger" th:if="${#fields.hasErrors('licensePlate')}" th:errors="*{licensePlate}">Incorrect license plate format!</span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="selectBrand">Brand</label><br>
+                            <select th:field="*{brand}" class="form-select" id="selectBrand" aria-label="selectBrand" required>
+                                <option value="" selected hidden="hidden" >-Select a brand-</option>
+                                <option th:each="brandElement: ${T(com.carservice.data.enums.CarBrand).values()}"
+                                        th:if="${brandElement.carBrand} != 'All'" th:text="${brandElement.carBrand}" th:value="${brandElement.carBrand}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="model">Model</label>
+                            <input class="form-control" type="text" th:field="*{model}" placeholder="Enter model" id="model">
+                            <span class="text-danger" th:if="${#fields.hasErrors('model')}" th:errors="*{model}">Model cannot be blank</span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="year">Year</label>
+                            <input class="form-control" type="text" th:field="*{year}" placeholder="Enter year" id="year">
+                            <span class="text-danger" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year cannot be blank</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-<footer th:replace="~{fragments :: footer}"></footer>
+</div>
 </body>
 </html>

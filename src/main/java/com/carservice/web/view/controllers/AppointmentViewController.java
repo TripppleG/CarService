@@ -1,20 +1,29 @@
 package com.carservice.web.view.controllers;
 
+import com.carservice.data.repository.CarCenterRepository;
+import com.carservice.data.repository.CarRepository;
+import com.carservice.data.repository.CustomerRepository;
 import com.carservice.dto.AppointmentDTO;
+import com.carservice.dto.CarDTO;
 import com.carservice.exceptions.AppointmentNotFoundException;
 import com.carservice.exceptions.CustomerNotFoundException;
 import com.carservice.services.AppointmentService;
 import com.carservice.web.view.model.AppointmentViewModel;
+import com.carservice.web.view.model.CreateAppointmentViewModel;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +34,9 @@ import java.util.stream.Collectors;
 public class AppointmentViewController {
     private final AppointmentService appointmentService;
     private final ModelMapper modelMapper;
+    private final CarRepository carRepository;
+    private final CarCenterRepository carCenterRepository;
+    private final CustomerRepository customerRepository;
 
     private AppointmentViewModel convertToAppointmentViewModel(AppointmentDTO appointmentDTO) {
         return modelMapper.map(appointmentDTO, AppointmentViewModel.class);
@@ -47,27 +59,28 @@ public class AppointmentViewController {
     }
 
     @GetMapping("/create-appointment")
-    public String showCreateAppointmentForm(@Valid @ModelAttribute("appointment") AppointmentViewModel appointment, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "/appointments/create-appointment";
-        }
-        appointmentService.create(modelMapper.map(appointment, AppointmentDTO.class));
-        return "redirect:/appointments";
+    public String showCreateAppointmentForm(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String ownerEmail = authentication.getName();
+        model.addAttribute("customer", customerRepository.findByEmail(ownerEmail));
+        model.addAttribute("cars", carRepository.findAllByOwnerEmail(ownerEmail));
+        model.addAttribute("carCenter", carCenterRepository.findAll());
+        model.addAttribute("appointment", new CreateAppointmentViewModel());
+        return "/appointments/create-appointment";
     }
 
     @PostMapping("/create")
     public String createAppointment(@Valid @ModelAttribute("appointment") AppointmentViewModel appointment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/appointments/create-appointment";
+            return "redirect:/appointments";
         }
         appointmentService.create(modelMapper.map(appointment, AppointmentDTO.class));
         return "redirect:/appointments";
     }
 
-    @GetMapping("/update-appointment/{id}")
-    public String showUpdateAppointmentForm(@PathVariable("id") Long id, Model model) {
-        AppointmentDTO appointmentDTO = appointmentService.getAppointment(id);
-        model.addAttribute("appointment", appointmentDTO);
+    @GetMapping("/edit-appointment/{id}")
+    public String showUpdateAppointmentForm(@PathVariable Long id, Model model) {
+        model.addAttribute("appointment", modelMapper.map(appointmentService.getAppointment(id), AppointmentViewModel.class));
         return "/appointments/edit-appointment";
     }
 

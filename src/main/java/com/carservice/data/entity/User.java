@@ -1,21 +1,25 @@
 package com.carservice.data.entity;
 
+import com.carservice.data.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.*;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class User {
+@NoArgsConstructor
+@ToString
+public abstract class User implements UserDetails {
     @Id
     @Column(name = "email")
-    @Size(min = 6, max = 64, message = "The email must be at least {min} characters long!")
+    @Email(regexp = ".+[@].+[\\.].+", message = "Invalid email format!")
     @NotBlank(message = "The email cannot be empty!")
     protected String email;
 
@@ -37,4 +41,47 @@ public abstract class User {
     @Size(min = 8, max = 64, message = "The password must contain at least 8 characters!")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "The password must contain at least 1 uppercase letter, 1 lowercase letter and 1 digit!")
     protected String password;
+
+    @Enumerated
+    @Column(name = "authority")
+    @NotNull
+    protected Role authority;
+
+//    @ManyToMany
+//    private Set<Role> authorities;
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Set.of(this.authority);
+    }
+
+    @Override
+    public String getUsername(){
+        return email;
+    }
+
+    @Override
+    public String getPassword(){
+        return password;
+    }
 }

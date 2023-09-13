@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jdk.jfr.BooleanFlag;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -19,7 +20,6 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 public class AppointmentDTO {
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @NotNull(message = "The customer must be set!")
@@ -39,6 +39,6 @@ public class AppointmentDTO {
     @Future(message = "The date of appointment must be in the future!")
     private LocalDate dateOfAppointment;
 
-    @NotNull(message = "The is past must be set!")
-    private Boolean isPast = false;
+    @BooleanFlag
+    private Boolean hasPassed = false;
 }

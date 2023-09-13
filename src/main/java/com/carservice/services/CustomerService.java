@@ -1,6 +1,7 @@
 package com.carservice.services;
 
 import com.carservice.data.entity.Customer;
+import com.carservice.dto.CreateCustomerDTO;
 import com.carservice.dto.CustomerDTO;
 import jakarta.validation.Valid;
 
@@ -11,8 +12,7 @@ public interface CustomerService {
 
     CustomerDTO getCustomer(String customerEmail);
 
-
-    Customer create(@Valid CustomerDTO customerDTO);
+    Customer create(@Valid CreateCustomerDTO createCustomerDTO);
 
     Customer updateCustomer(String customerEmail, @Valid CustomerDTO customerDTO);
 
@@ -27,6 +27,4 @@ public interface CustomerService {
     CustomerDTO getCustomerByCarLicensePlate(String carLicensePlate);
 
     CustomerDTO getCustomerByAppointmentId(Long appointmentId);
-
-    CustomerDTO getCustomerByServiceCenterName(String serviceCenterName);
 }

@@ -117,8 +117,8 @@ public class AppointmentServiceImpl implements AppointmentService{
     }
 
     @Override
-    public List<AppointmentDTO> getAppointmentsByIsPastTrue() {
-        return appointmentRepository.findAllByIsPastTrue().stream()
+    public List<AppointmentDTO> getAppointmentsByHasPassedTrue() {
+        return appointmentRepository.findAllByHasPassedTrue().stream()
                 .map(this::convertToAppointmentDTO)
                 .collect(Collectors.toList());
     }

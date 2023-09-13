@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("")
 @AllArgsConstructor
 @Validated
-public class SerciceJobApiController {
+public class ServiceJobApiController {
 }

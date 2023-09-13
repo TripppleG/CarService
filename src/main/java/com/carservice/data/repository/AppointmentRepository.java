@@ -24,5 +24,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     List<Appointment> findAllByCarCenterNameAndDateOfAppointment(String carCenterName, LocalDate dateOfAppointment);
 
-    List<Appointment> findAllByIsPastTrue();
+    List<Appointment> findAllByHasPassedTrue();
 }

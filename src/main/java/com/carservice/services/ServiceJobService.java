@@ -18,9 +18,9 @@ public interface ServiceJobService {
 
     void deleteServiceJob(Long id);
 
-    List<ServiceJobDTO> getServiceJobsByCustomerEmail(String customerEmail);
-
-    List<ServiceJobDTO> getServiceJobsByCarLicensePlate(String carLicensePlate);
+//    List<ServiceJobDTO> getServiceJobsByCustomerEmail(String customerEmail);
+//
+//    List<ServiceJobDTO> getServiceJobsByCarLicensePlate(String carLicensePlate);
 
     List<ServiceJobDTO> getServiceJobsByEmployeeEmail(String employeeEmail);
 
@@ -32,9 +32,9 @@ public interface ServiceJobService {
 
     List<ServiceJobDTO> getServiceJobsByDateFinished(LocalDate dateFinished);
 
-    List<ServiceJobDTO> getServiceJobsByCarLicensePlateAndDateFinished(String carLicensePlate, LocalDate dateFinished);
-
-    List<ServiceJobDTO> getServiceJobsByCarLicensePlateAndDateStarted(String carLicensePlate, LocalDate dateStarted);
+//    List<ServiceJobDTO> getServiceJobsByCarLicensePlateAndDateFinished(String carLicensePlate, LocalDate dateFinished);
+//
+//    List<ServiceJobDTO> getServiceJobsByCarLicensePlateAndDateStarted(String carLicensePlate, LocalDate dateStarted);
 
     List<ServiceJobDTO> getServiceJobsByPriceLessThanEqual(double price);
 

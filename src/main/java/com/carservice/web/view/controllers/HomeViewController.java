@@ -14,9 +14,4 @@ public class HomeViewController {
     public String getCustomerHome(){
         return "customers/home";
     }
-
-    @GetMapping("employee/home")
-    public String getEmployeeHome(){
-        return "employees/home";
-    }
 }

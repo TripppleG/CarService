@@ -10,9 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ServiceJobRepository extends JpaRepository<ServiceJob, Long> {
-    List<ServiceJob> findAllByCustomerEmail(String customerEmail);
-
-    List<ServiceJob> findAllByCarLicensePlate(String carLicensePlate);
+//    List<ServiceJob> findAllByCustomerEmail(String customerEmail);
+//
+//    List<ServiceJob> findAllByCarLicensePlate(String carLicensePlate);
 
     List<ServiceJob> findAllByEmployeeEmail(String employeeEmail);
 
@@ -24,9 +24,9 @@ public interface ServiceJobRepository extends JpaRepository<ServiceJob, Long> {
 
     List<ServiceJob> findAllByDateFinished(LocalDate dateFinished);
 
-    List<ServiceJob> findAllByCarLicensePlateAndDateFinished(String carLicensePlate, LocalDate dateFinished);
-
-    List<ServiceJob> findAllByCarLicensePlateAndDateStarted(String carLicensePlate, LocalDate dateStarted);
+//    List<ServiceJob> findAllByCarLicensePlateAndDateFinished(String carLicensePlate, LocalDate dateFinished);
+//
+//    List<ServiceJob> findAllByCarLicensePlateAndDateStarted(String carLicensePlate, LocalDate dateStarted);
 
     List<ServiceJob> findAllByPriceLessThanEqual(double price);
 

@@ -7,6 +7,7 @@ import com.carservice.exceptions.CustomerNotFoundException;
 import com.carservice.services.CarService;
 import com.carservice.web.view.model.CarViewModel;
 import com.carservice.web.view.model.CreateCarViewModel;
+import com.carservice.web.view.model.UpdateCarViewModel;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -73,12 +74,11 @@ public class CarViewController {
     }
 
     @PostMapping("/update/{licensePlate}")
-    public String updateCar(@PathVariable("licensePlate") String licensePlate, @Valid @ModelAttribute("car") CarViewModel car,
-                            BindingResult bindingResult) {
+    public String updateCar(@PathVariable("licensePlate") String licensePlate, @Valid UpdateCarViewModel updateCarViewModel, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "cars/edit-car";
         }
-        carService.updateCar(car.getLicensePlate(), modelMapper.map(car, CarDTO.class));
+        carService.updateCar(licensePlate, modelMapper.map(updateCarViewModel, CarDTO.class));
         return "redirect:/cars";
     }
 
@@ -105,7 +105,7 @@ public class CarViewController {
         return "/cars/cars";
     }
 
-    // Search by
+    // Search by model
     @GetMapping("/search-car-by-model")
     public  String getCarsByModelStartingWith(Model model, @RequestParam String carModel) {
         final List<CarViewModel> cars = carService.getCarsByModelStartingWith(carModel, Sort.by("model"))

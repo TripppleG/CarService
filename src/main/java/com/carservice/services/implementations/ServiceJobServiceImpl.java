@@ -56,19 +56,19 @@ public class ServiceJobServiceImpl implements ServiceJobService {
         serviceJobRepository.deleteById(id);
     }
 
-    @Override
-    public List<ServiceJobDTO> getServiceJobsByCustomerEmail(String customerEmail) {
-        return serviceJobRepository.findAllByCustomerEmail(customerEmail).stream()
-                .map(this::convertToServiceJobDTO)
-                .collect(java.util.stream.Collectors.toList());
-    }
-
-    @Override
-    public List<ServiceJobDTO> getServiceJobsByCarLicensePlate(String carLicensePlate) {
-        return serviceJobRepository.findAllByCarLicensePlate(carLicensePlate).stream()
-                .map(this::convertToServiceJobDTO)
-                .collect(java.util.stream.Collectors.toList());
-    }
+//    @Override
+//    public List<ServiceJobDTO> getServiceJobsByCustomerEmail(String customerEmail) {
+//        return serviceJobRepository.findAllByCustomerEmail(customerEmail).stream()
+//                .map(this::convertToServiceJobDTO)
+//                .collect(java.util.stream.Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<ServiceJobDTO> getServiceJobsByCarLicensePlate(String carLicensePlate) {
+//        return serviceJobRepository.findAllByCarLicensePlate(carLicensePlate).stream()
+//                .map(this::convertToServiceJobDTO)
+//                .collect(java.util.stream.Collectors.toList());
+//    }
 
     @Override
     public List<ServiceJobDTO> getServiceJobsByEmployeeEmail(String employeeEmail) {
@@ -105,19 +105,19 @@ public class ServiceJobServiceImpl implements ServiceJobService {
                 .collect(java.util.stream.Collectors.toList());
     }
 
-    @Override
-    public List<ServiceJobDTO> getServiceJobsByCarLicensePlateAndDateFinished(String carLicensePlate, LocalDate dateFinished) {
-        return serviceJobRepository.findAllByCarLicensePlateAndDateFinished(carLicensePlate, dateFinished).stream()
-                .map(this::convertToServiceJobDTO)
-                .collect(java.util.stream.Collectors.toList());
-    }
-
-    @Override
-    public List<ServiceJobDTO> getServiceJobsByCarLicensePlateAndDateStarted(String carLicensePlate, LocalDate dateStarted) {
-        return serviceJobRepository.findAllByCarLicensePlateAndDateStarted(carLicensePlate, dateStarted).stream()
-                .map(this::convertToServiceJobDTO)
-                .collect(java.util.stream.Collectors.toList());
-    }
+//    @Override
+//    public List<ServiceJobDTO> getServiceJobsByCarLicensePlateAndDateFinished(String carLicensePlate, LocalDate dateFinished) {
+//        return serviceJobRepository.findAllByCarLicensePlateAndDateFinished(carLicensePlate, dateFinished).stream()
+//                .map(this::convertToServiceJobDTO)
+//                .collect(java.util.stream.Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<ServiceJobDTO> getServiceJobsByCarLicensePlateAndDateStarted(String carLicensePlate, LocalDate dateStarted) {
+//        return serviceJobRepository.findAllByCarLicensePlateAndDateStarted(carLicensePlate, dateStarted).stream()
+//                .map(this::convertToServiceJobDTO)
+//                .collect(java.util.stream.Collectors.toList());
+//    }
 
     @Override
     public List<ServiceJobDTO> getServiceJobsByPriceLessThanEqual(double price) {

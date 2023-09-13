@@ -3,6 +3,7 @@ package com.carservice.web.view.model;
 import com.carservice.data.entity.Car;
 import com.carservice.data.entity.CarCenter;
 import com.carservice.data.entity.Customer;
+import com.carservice.data.entity.ServiceJob;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -38,6 +40,9 @@ public class AppointmentViewModel {
     @NotNull(message = "The date of appointment must be set!")
     @Future(message = "The date of appointment must be in the future!")
     private LocalDate dateOfAppointment;
+
+    @NotNull(message = "The service jobs must be set!")
+    private List<ServiceJob> serviceJobs;
 
     @BooleanFlag
     private Boolean hasPassed = false;

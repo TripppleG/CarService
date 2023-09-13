@@ -8,11 +8,11 @@
     <link href="/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
 <body>
 <div class="container">
-    <form name="login" th:action="@{customers/home}" method="post">
+    <form name="login" th:action="@{/login}" method="post">
         <br>
         <fieldset>
             <div th:if="${param.error}">
-                <div class="alert alert-danger"> Invalid Email or Password!</div>
+                <div class="alert alert-danger"> Wrong email or password!</div>
             </div>
             <div th:if="${param.logout}">
                 <div class="alert alert-success"> You have been logged out.</div>
