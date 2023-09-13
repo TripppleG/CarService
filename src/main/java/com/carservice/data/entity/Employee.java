@@ -1,11 +1,11 @@
 package com.carservice.data.entity;
 
-import com.carservice.data.enums.Role;
 import com.carservice.data.enums.ServiceJobType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -27,7 +27,7 @@ public class Employee extends User {
     @JoinColumn(name = "working_at")
     @NotNull(message = "The car center must be set!")
     private CarCenter workingAt;
-
+    
     @OneToMany(targetEntity = ServiceJob.class, mappedBy = "employee")
     private Set<ServiceJob> serviceJobs;
 
@@ -49,7 +49,8 @@ public class Employee extends User {
         this.password = password;
         this.qualifications = qualifications;
         this.workingAt = workingAt;
-        this.authority = Role.EMPLOYEE;
+        this.authorities = new HashSet<>(){{add(new Role());}};
+        this.authorities.iterator().next().setAuthority("EMPLOYEE");
         setEmail();
     }
 }

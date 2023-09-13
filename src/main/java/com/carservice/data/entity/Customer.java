@@ -1,6 +1,5 @@
 package com.carservice.data.entity;
 
-import com.carservice.data.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,7 +26,8 @@ public class Customer extends User {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.authority = Role.CUSTOMER;
+        this.authorities = new HashSet<>(){{add(new Role());}};
+        this.authorities.iterator().next().setAuthority("CUSTOMER");
         this.cars = new HashSet<>();
         this.appointments = new HashSet<>();
     }
