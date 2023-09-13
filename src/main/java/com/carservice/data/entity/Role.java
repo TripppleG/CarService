@@ -1,32 +1,28 @@
-package com.carservice.data.enums;
+package com.carservice.data.entity;
 
-import com.carservice.data.entity.User;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-
+import jakarta.persistence.*;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
+@Table(name = "role")
+public class Role implements GrantedAuthority {
 
-//@Getter
-//@Setter
-//@NoArgsConstructor
-//@Entity
-//@Table(name = "role")
-public enum /*class*/ Role implements GrantedAuthority {
-//    @Id
-//    private Long id;
-//
-//    private String authority;
-//
-//    @ManyToMany(mappedBy = "authorities", fetch = FetchType.EAGER)
-//    private Set<User> users;
-    CUSTOMER,
-    EMPLOYEE;
-    @Override
-    public String getAuthority() {
-        return name();
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected long id;
+
+    private String authority;
+
+    @ManyToMany(mappedBy = "authorities", fetch = FetchType.EAGER)
+    private Set<User> users;
 }
