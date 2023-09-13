@@ -35,6 +35,4 @@ public class CustomerDTO {
     private Set<Car> cars;
 
     private Set<Appointment> appointments;
-
-    private Set<CarCenter> customerOf;
 }

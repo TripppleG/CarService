@@ -7,7 +7,9 @@ import com.carservice.data.entity.Employee;
 import com.carservice.data.enums.ServiceJobStatus;
 import com.carservice.data.enums.ServiceJobType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
 import java.io.Serializable;
@@ -20,11 +22,7 @@ import java.time.LocalDate;
 public class ServiceJobDTO {
     private Long id;
 
-    @NotNull(message = "The customer must be set!")
-    private Customer customer;
-
-    @NotNull(message = "The car must be set!")
-    private Car car;
+    private Employee employee;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "The type must be set!")
@@ -34,11 +32,16 @@ public class ServiceJobDTO {
 
     private LocalDate dateFinished;
 
-    private Employee employee;
-
+    @Column(name = "price")
+    @PositiveOrZero(message = "The price can't be negative")
     private Double price;
 
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     @NotNull(message = "The status must be set!")
-    private ServiceJobStatus status;
+    private ServiceJobStatus status = ServiceJobStatus.NEW;
+
+    @ManyToOne(targetEntity = Appointment.class)
+    @JoinColumn(name = "appointment_id")
+    private Appointment appointment;
 }

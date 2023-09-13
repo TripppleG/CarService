@@ -32,12 +32,14 @@ public class AppointmentDTO {
     private Car car;
 
     @NotNull(message = "The date created must be set!")
-    @PastOrPresent(message = "The date created must not be the future!")
-    private LocalDate dateCreated;
+    private final LocalDate dateCreated = LocalDate.now();
 
     @NotNull(message = "The date of appointment must be set!")
     @Future(message = "The date of appointment must be in the future!")
     private LocalDate dateOfAppointment;
+
+    @NotNull(message = "The service jobs must be set!")
+    private List<ServiceJob> serviceJobs;
 
     @BooleanFlag
     private Boolean hasPassed = false;

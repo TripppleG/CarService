@@ -41,8 +41,4 @@ public class CarDTO {
     private Customer owner;
 
     private Set<Appointment> appointments;
-
-    private Set<ServiceJob> serviceJobs;
-
-    private Set<CarCenter> carCenters;
 }
