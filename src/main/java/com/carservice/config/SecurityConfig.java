@@ -45,13 +45,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/login", "/register", "/")
                         .permitAll()
-                        .requestMatchers("/home").hasAnyAuthority("CUSTOMER", "EMPLOYEE")
+                        .requestMatchers("/customer/home").hasAnyAuthority("CUSTOMER", "EMPLOYEE")
                         .anyRequest()
                         .permitAll()
                 )
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/")
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/customer/home")
                         .permitAll()
                 )
                 .exceptionHandling((exceptionHandling) -> exceptionHandling

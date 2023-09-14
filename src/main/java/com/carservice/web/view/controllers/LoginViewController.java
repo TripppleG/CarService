@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class LoginViewController {
     @GetMapping("/login")
-    public String getLogin() {
+    public String getLogin(/*Model model, Authentication authentication*/) {
+//        Authentication authentication2 = SecurityContextHolder.getContext().getAuthentication();
+//        model.addAttribute("username", authentication.getName());
+//
+//        User principal = (User) authentication.getPrincipal();
+//        model.addAttribute("username", principal.getAuthorities());
         return "login";
     }
-
-
-
 
     @GetMapping("/logout")
     public String logout(){

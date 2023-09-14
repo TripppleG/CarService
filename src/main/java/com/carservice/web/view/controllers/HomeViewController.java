@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @RequestMapping
 public class HomeViewController {
-//    @GetMapping("/home")
-//    public String getHome(){
-//        return "customers/home";
-//    }
+    @GetMapping("/home")
+    public String getHome(){
+        return "customers/home";
+    }
 }
